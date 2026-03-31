@@ -18,6 +18,7 @@ TEST_FILE_NAME:str = "test.csv"
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 SCALED_TRAIN_FILE_NAME:str = "train.npy"
 SCALED_TEST_FILE_NAME:str = "test.npy"
+ROLLING_WINDOW: int = 48
 
 """
 Data Ingestion related constant start with Data_Ingestion VAR name.
