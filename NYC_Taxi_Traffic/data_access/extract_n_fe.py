@@ -23,6 +23,9 @@ class NYC():
                 collection = self.mongo_client.database[collection_name]
 
             df = pd.DataFrame(list(collection.find()))
+            #df.columns = [str(col).strip().lower() for col in df.columns]
+            
+
             if '_id' in df.columns:
                 df = df.drop('_id', axis=1)
             if 'Unnamed: 0' in df.columns:
@@ -30,12 +33,20 @@ class NYC():
             if 'value' in df.columns:
                 df = df.rename(columns={"value": "passengers"})
 
+            if 'timestamp' not in df.columns:
+                raise Exception(f"'timestamp' column not found. Available columns: {df.columns.tolist()}")
+
             df['timestamp'] = pd.to_datetime(df['timestamp'])
-            df = df.sort_values('timestamp')
 
             df.set_index('timestamp', inplace=True)
             
             df.replace({'na':np.nan},inplace=True)
+
+            #new features
+            df = self.add_features(df=df)
+
+            print("COLUMNS FOUND:", df.columns.tolist())
+
             return df
         except Exception as e:
             raise CustomException(e,sys)

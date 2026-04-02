@@ -31,10 +31,6 @@ dagshub==0.3.34
 
 # Utils
 from_root
-neuro_mf
-boto3
-botocore
-mypy-boto3-s3
 jinja2
 ipykernel
 
