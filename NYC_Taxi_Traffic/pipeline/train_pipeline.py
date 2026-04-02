@@ -4,10 +4,12 @@ from NYC_Taxi_Traffic.entity.config_entity import *
 from NYC_Taxi_Traffic.entity.artifact_entity import *
 import sys
 from NYC_Taxi_Traffic.components.data_ingestion import DataIngestion
+from NYC_Taxi_Traffic.components.data_validation import DataValidation
 
 class TrainPipeline():
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
+        self.data_validation_config = DataValidationConfig()
 
 
     
@@ -28,6 +30,20 @@ class TrainPipeline():
         except Exception as e:
             raise CustomException(e, sys) 
         
+    
+    def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) -> DataValidationArtifact:
+
+        try:
+            logging.info("Entered the start_data_validation method of TrainPipeline class")
+            data_validation = DataValidation(data_ingestion_artifact=data_ingestion_artifact,
+                                              data_validation_config=self.data_validation_config)
+            
+            data_validation_artifact = data_validation.initiate_data_validation()
+            logging.info("Performed and Exited the Data Validation method")
+            return data_validation_artifact
+        except Exception as e:
+            raise CustomException(e,sys)
+        
 
     
 
@@ -42,6 +58,7 @@ class TrainPipeline():
 
         try:
             data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
 
 
             return None
