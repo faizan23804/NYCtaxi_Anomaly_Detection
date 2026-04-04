@@ -5,11 +5,13 @@ from NYC_Taxi_Traffic.entity.artifact_entity import *
 import sys
 from NYC_Taxi_Traffic.components.data_ingestion import DataIngestion
 from NYC_Taxi_Traffic.components.data_validation import DataValidation
+from NYC_Taxi_Traffic.components.data_transformation import DataTransformation
 
 class TrainPipeline():
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
+        self.data_transformation_config = DataTransformationConfig()
 
 
     
@@ -45,6 +47,19 @@ class TrainPipeline():
             raise CustomException(e,sys)
         
 
+    def start_data_transformation(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
+
+        try:
+            logging.info("Entered the start_data_tranformation method of TrainPipeline class")
+            data_transformation = DataTransformation(data_ingestion_artifact=data_ingestion_artifact,
+                                                     data_validation_artifact=data_validation_artifact,
+                                                     data_transformation_config=self.data_transformation_config)
+            data_transformation_artifact = data_transformation.initiate_data_transformation()
+            logging.info("Performed and Exited the Data Validation method")
+            return data_transformation_artifact
+        except Exception as e:
+            raise CustomException(e,sys)
+
     
 
 
@@ -59,6 +74,8 @@ class TrainPipeline():
         try:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact,
+                                                     data_validation_artifact=data_validation_artifact)
 
 
             return None

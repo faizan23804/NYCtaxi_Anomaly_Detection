@@ -34,3 +34,17 @@ class DataValidationConfig:
         drift_report_dir,
         DATA_VALIDATION_DRIFT_REPORT_FILE_NAME
     )
+      
+@dataclass
+class DataTransformationConfig:
+      data_transformation_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir,
+        DATA_TRANSFORMATION_DIR_NAME)
+      data_transformation_transformed_dir: str = os.path.join(
+          data_transformation_dir,
+          DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR_NAME,
+          SCALED_FILE_NAME)
+      data_trasformation_object_dir: str = os.path.join(data_transformation_dir,
+                                                        DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR_NAME,
+                                                        PREPROCESSING_OBJECT_FILE_NAME)
+     

@@ -25,7 +25,7 @@ class DataValidation:
             raise CustomException(e,sys)
 
 
-    def validate_columns(self,df: pd.DataFrame) -> bool:
+    def validate_columns(self,df: pd.DataFrame):
 
         try:
             status = len(df.columns) == len(self.schema_config['columns'])
@@ -34,21 +34,20 @@ class DataValidation:
         except Exception as e:
             raise CustomException(e,sys)
         
-    def validate_null_values(self, df: pd.DataFrame) -> bool:
+    def validate_null_values(self, df: pd.DataFrame):
         
         try:
             null_counts = df.isnull().sum()
             cols_with_nulls = null_counts[null_counts > 0].to_dict()
             if cols_with_nulls:
-                return False
-            logging.info(f"Null values found: {cols_with_nulls}") 
-            logging.info("No null values found")
-            return True
+                return False, logging.info(f"Null values found: {cols_with_nulls}")
+             
+            return True, logging.info("No null values found")
             
         except Exception as e:
             raise CustomException(e, sys)
         
-    def validate_value_range(self,df: pd.DataFrame) -> bool:
+    def validate_value_range(self,df: pd.DataFrame):
 
         try:
             ranges = self.schema_config.get("value_ranges",{})
@@ -62,10 +61,9 @@ class DataValidation:
                     error.append(f"{cols} has values below {limits['max']}")
 
             if error:
-                return False
-            logging.info(f"Range errors: {error}")
-            logging.info("All value ranges valid")
-            return True
+                return False, logging.info(f"Range errors: {error}")
+            
+            return True, logging.info("All value ranges valid")
         
                 
         except Exception as e:

@@ -13,9 +13,7 @@ from NYC_Taxi_Traffic.data_access.extract_n_fe import NYC
 
 class DataIngestion:
     def __init__(self,data_ingestion_config:DataIngestionConfig=DataIngestionConfig()):
-        """
-        :param data_ingestion_config: configuration for data ingestion
-        """
+       
         try:
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
@@ -23,14 +21,8 @@ class DataIngestion:
         
 
     
-    def export_data_into_feature_store(self)->DataFrame:
-        """
-        Method Name :   export_data_into_feature_store
-        Description :   This method exports data from mongodb to csv file
-        
-        Output      :   data is returned as artifact of data ingestion components
-        On Failure  :   Write an exception log and then raise an exception
-        """
+    def export_data_into_feature_store(self)-> DataFrame:
+     
         try:
             logging.info(f"Exporting data from mongodb")
             nyc_data = NYC()
@@ -53,14 +45,8 @@ class DataIngestion:
 
 
     
-    def initiate_data_ingestion(self) ->DataIngestionArtifact:
-        """
-        Method Name :   initiate_data_ingestion
-        Description :   This method initiates the data ingestion components of training pipeline 
-        
-        Output      :   Dataset is returned as the artifact of data ingestion component
-        On Failure  :   Write an exception log and then raise an exception
-        """
+    def initiate_data_ingestion(self) -> DataIngestionArtifact:
+       
         logging.info("Entered initiate_data_ingestion method of Data_Ingestion class")
 
         try:

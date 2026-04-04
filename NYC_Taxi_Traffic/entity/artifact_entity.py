@@ -9,3 +9,8 @@ class DataIngestionArtifact:
 class DataValidationArtifact:
     validation_status: bool
     drift_report_file_path: str
+
+@dataclass
+class DataTransformationArtifact:
+     transformed_file_path: str 
+     preprocessor_object_file_path:str
