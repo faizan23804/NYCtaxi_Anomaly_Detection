@@ -29,12 +29,12 @@ class DataValidation:
 
         try:
             status = len(df.columns) == len(self.schema_config['columns'])
-            logging.info(f"Are the Number of Columns Valid: {status}")
-            return status
+            
+            return status,logging.info(f"Are the Number of Columns Valid: {status}")
         except Exception as e:
             raise CustomException(e,sys)
         
-    def validate_null_values(self, df: pd.DataFrame):
+    def validate_null_values(self, df: pd.DataFrame) -> tuple[bool,None]:
         
         try:
             null_counts = df.isnull().sum()
@@ -47,7 +47,7 @@ class DataValidation:
         except Exception as e:
             raise CustomException(e, sys)
         
-    def validate_value_range(self,df: pd.DataFrame):
+    def validate_value_range(self,df: pd.DataFrame) -> tuple[bool,None]:
 
         try:
             ranges = self.schema_config.get("value_ranges",{})
@@ -87,9 +87,9 @@ class DataValidation:
 
             report = {}
             overall_status = True
-            for check_name, status in checks.items():
-                report[check_name] = status
-                logging.info(f"{check_name}: {status}")
+            for check_name, (status, message) in checks.items():
+                report[check_name] = {"status": status, "message": message}
+                logging.info(f"{check_name}: {status} — {message}")
 
                 if not status:
                     overall_status = False

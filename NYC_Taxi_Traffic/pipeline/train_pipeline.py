@@ -6,12 +6,15 @@ import sys
 from NYC_Taxi_Traffic.components.data_ingestion import DataIngestion
 from NYC_Taxi_Traffic.components.data_validation import DataValidation
 from NYC_Taxi_Traffic.components.data_transformation import DataTransformation
+from NYC_Taxi_Traffic.components.model_trainer import ModelTrainer
+
 
 class TrainPipeline():
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
         self.data_transformation_config = DataTransformationConfig()
+        self.model_trainer_config = ModelTrainerConfig()
 
 
     
@@ -59,6 +62,18 @@ class TrainPipeline():
             return data_transformation_artifact
         except Exception as e:
             raise CustomException(e,sys)
+        
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact):
+
+        try:
+            logging.info("Entered the start_model_trainer method of TrainPipeline class")
+            model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
+                                         model_trainer_config=self.model_trainer_config)
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            logging.info("Performed and Exited the Model trainer method")
+            return model_trainer_artifact
+        except Exception as e:
+            raise CustomException(e,sys)
 
     
 
@@ -76,6 +91,8 @@ class TrainPipeline():
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
             data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact,
                                                      data_validation_artifact=data_validation_artifact)
+            
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
 
 
             return None

@@ -42,3 +42,18 @@ Data Transformation related constant start with Data_Transformation VAR name.
 DATA_TRANSFORMATION_DIR_NAME:str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR_NAME:str = "preprocessing_object"
 
+
+"""
+Model trainer related constant start with Model_trainer VAR name.
+"""
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_FILE_NAME: str = "model.pkl"
+
+"""
+Hyperparameters of Isolation Forest algorithm
+"""
+MODEL_TRAINER_N_ESTIMATORS: int = 100
+MODEL_TRAINER_CONTAMINATION: float = 0.05  
+MODEL_TRAINER_MAX_FEATURES: float = 1.0
+MODEL_TRAINER_RANDOM_STATE: int = 42

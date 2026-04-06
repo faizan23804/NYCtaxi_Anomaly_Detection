@@ -1,5 +1,5 @@
 import os,sys
-import numpy as np
+import numpy as np # type: ignore
 import pandas as pd
 import pickle
 from sklearn.preprocessing import StandardScaler
