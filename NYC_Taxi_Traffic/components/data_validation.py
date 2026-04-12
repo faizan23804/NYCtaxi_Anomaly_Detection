@@ -76,7 +76,14 @@ class DataValidation:
         try:
             # Load dataset
             df = pd.read_csv(self.data_ingestion_artifact.feature_store_file_path)
+            if 'timestamp' in df.columns:
+                df['timestamp'] = pd.to_datetime(df['timestamp'])
+                df.set_index('timestamp', inplace=True)
             logging.info(f"Dataset loaded for validation. Shape: {df.shape}")
+            print("COLUMNS:", df.columns.tolist())
+            print("SHAPE:", df.shape)
+            print("NULLS:", df.isnull().sum().to_dict())
+            print("DTYPES:", df.dtypes.to_dict())
 
             # Run all checks
             checks = {

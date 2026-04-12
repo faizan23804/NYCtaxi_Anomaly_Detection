@@ -49,6 +49,9 @@ class DataTransformation:
             
         try:
             df = self.read_data(file_path=self.data_ingestion_artifact.feature_store_file_path)
+            if 'timestamp' in df.columns:
+                df['timestamp'] = pd.to_datetime(df['timestamp'])
+                df.set_index('timestamp', inplace=True)
 
             logging.info(f"Dataset loaded for transformation. Shape: {df.shape}")
 

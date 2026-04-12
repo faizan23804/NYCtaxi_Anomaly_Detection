@@ -1,0 +1,165 @@
+<!-- templates/style.html -->
+<!-- All CSS and HTML templates for NYC Taxi Anomaly Detector -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap');
+
+    /* Base */
+    html, body, [class*="css"] {
+        font-family: 'Syne', sans-serif;
+    }
+
+    .stApp {
+        background-color: #0a0a0f;
+        color: #e8e8f0;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #0f0f1a;
+        border-right: 1px solid #1e1e3a;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+        background: linear-gradient(135deg, #0d0d1f 0%, #12122b 50%, #0a0a1a 100%);
+        border: 1px solid #2a2a5a;
+        border-radius: 16px;
+        padding: 2.5rem 3rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-banner::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 30% 50%, rgba(255, 200, 0, 0.04) 0%, transparent 60%),
+                    radial-gradient(circle at 70% 50%, rgba(0, 180, 255, 0.04) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .hero-title {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 2.6rem;
+        color: #ffffff;
+        margin: 0 0 0.4rem 0;
+        letter-spacing: -1px;
+    }
+    .hero-title span { color: #ffc700; }
+    .hero-subtitle {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.82rem;
+        color: #6666aa;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    /* Metric Cards */
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .metric-card {
+        background: #0f0f1a;
+        border: 1px solid #1e1e3a;
+        border-radius: 12px;
+        padding: 1.4rem 1.6rem;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s;
+    }
+    .metric-card:hover { border-color: #3a3a6a; }
+    .metric-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 2px;
+    }
+    .metric-card.yellow::after { background: #ffc700; }
+    .metric-card.red::after    { background: #ff4455; }
+    .metric-card.blue::after   { background: #00b4ff; }
+    .metric-card.green::after  { background: #00e5a0; }
+
+    .metric-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.68rem;
+        color: #6666aa;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+    .metric-value {
+        font-family: 'Syne', sans-serif;
+        font-weight: 800;
+        font-size: 2rem;
+        color: #ffffff;
+        line-height: 1;
+    }
+    .metric-value.red    { color: #ff4455; }
+    .metric-value.yellow { color: #ffc700; }
+    .metric-value.blue   { color: #00b4ff; }
+    .metric-value.green  { color: #00e5a0; }
+
+    /* Section Headers */
+    .section-header {
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+        margin: 2rem 0 1rem 0;
+        padding-left: 0.8rem;
+        border-left: 3px solid #ffc700;
+    }
+
+    /* Status Badge */
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .badge-normal  { background: rgba(0,229,160,0.12); color: #00e5a0; border: 1px solid rgba(0,229,160,0.3); }
+    .badge-anomaly { background: rgba(255,68,85,0.12);  color: #ff4455; border: 1px solid rgba(255,68,85,0.3); }
+
+    /* Info Box */
+    .info-box {
+        background: #0f0f1a;
+        border: 1px solid #1e1e3a;
+        border-radius: 10px;
+        padding: 1rem 1.4rem;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        color: #8888bb;
+        line-height: 1.8;
+    }
+
+    /* Anomaly Table */
+    .anomaly-table {
+        background: #0f0f1a;
+        border: 1px solid #1e1e3a;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* Hide Streamlit chrome */
+    #MainMenu, footer, header { visibility: hidden; }
+    .block-container { padding-top: 2rem; padding-bottom: 2rem; }
+
+    /* Selectbox & Slider */
+    .stSelectbox > div > div,
+    .stSlider > div {
+        background-color: #0f0f1a !important;
+        border-color: #2a2a5a !important;
+        color: #e8e8f0 !important;
+    }
+</style>
